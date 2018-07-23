@@ -1,0 +1,57 @@
+{
+    "name": "Webservice",
+    "fields": [
+        {
+            "fieldName": "webserviceName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "datatype",
+            "fieldType": "DataType",
+            "fieldValues": "FILE,DATABASE,CREATE"
+        },
+        {
+            "fieldName": "databaseType",
+            "fieldType": "DatabaseType",
+            "fieldValues": "SQL,MONGODB,CASSANDRA"
+        },
+        {
+            "fieldName": "databaseProduct",
+            "fieldType": "SqlProduct",
+            "fieldValues": "MYSQL,POSTGRESQL,ORACLE,MSSQL"
+        },
+        {
+            "fieldName": "databasePath",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dbUsername",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dbPass",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180718095229",
+    "entityTableName": "webservice",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

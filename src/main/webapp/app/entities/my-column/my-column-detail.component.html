@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="myColumn">
+            <h2><span>My Column</span> {{myColumn.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Column Name</span></dt>
+                <dd>
+                    <span>{{myColumn.columnName}}</span>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{myColumn.type}}</span>
+                </dd>
+                <dt><span>Table</span></dt>
+                <dd>
+                    <div *ngIf="myColumn.table">
+                        <a [routerLink]="['/my-table', myColumn.table?.id, 'view']">{{myColumn.table?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/my-column', myColumn.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

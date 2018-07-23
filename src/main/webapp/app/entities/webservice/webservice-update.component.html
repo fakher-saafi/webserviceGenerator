@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-webservice-heading">Create or edit a Webservice</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!webservice.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="webservice.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_webserviceName">Webservice Name</label>
+                    <input type="text" class="form-control" name="webserviceName" id="field_webserviceName"
+                        [(ngModel)]="webservice.webserviceName" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="webservice.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_datatype">Datatype</label>
+                    <select class="form-control" name="datatype" [(ngModel)]="webservice.datatype" id="field_datatype" >
+                        <option value="FILE">FILE</option>
+                        <option value="DATABASE">DATABASE</option>
+                        <option value="CREATE">CREATE</option>
+                    </select>
+                </div>
+                <div class="form-group" *ngIf="webservice.datatype==='DATABASE'">
+                    <label class="form-control-label" for="field_databaseType">Database Type</label>
+                    <select class="form-control" name="databaseType" [(ngModel)]="webservice.databaseType" id="field_databaseType" >
+                        <option value="SQL">SQL</option>
+                        <option value="MONGODB">MONGODB</option>
+                        <option value="CASSANDRA">CASSANDRA</option>
+                    </select>
+                </div>
+                <div class="form-group" *ngIf="webservice.databaseType==='SQL'">
+                    <label class="form-control-label" for="field_databaseProduct">Database Product</label>
+                    <select class="form-control" name="databaseProduct" [(ngModel)]="webservice.databaseProduct" id="field_databaseProduct" >
+                        <option value="MYSQL">MYSQL</option>
+                        <option value="POSTGRESQL">POSTGRESQL</option>
+                        <option value="ORACLE">ORACLE</option>
+                        <option value="MSSQL">MSSQL</option>
+                    </select>
+                </div>
+                <div class="form-group" *ngIf="webservice.datatype==='DATABASE'">
+                    <label class="form-control-label" for="field_databasePath">Database Path</label>
+                    <input type="text" class="form-control" name="databasePath" id="field_databasePath"
+                           [(ngModel)]="webservice.databasePath" />
+                </div>
+                <div class="form-group" *ngIf="webservice.datatype==='DATABASE'">
+                    <label class="form-control-label" for="field_dbUsername">Db Username</label>
+                    <input type="text" class="form-control" name="dbUsername" id="field_dbUsername"
+                           [(ngModel)]="webservice.dbUsername" />
+                </div>
+                <div class="form-group" *ngIf="webservice.datatype==='DATABASE'">
+                    <label class="form-control-label" for="field_dbPass">Db Pass</label>
+                    <input type="password" class="form-control" name="dbPass" id="field_dbPass"
+                           [(ngModel)]="webservice.dbPass" />
+                </div>
+
+
+            </div>
+            <div>
+                <button type="button" id="test" class="btn btn-secondary"  (click)="testconnection()">
+                    <span>test</span>
+                </button>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

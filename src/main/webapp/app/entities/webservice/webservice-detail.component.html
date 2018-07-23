@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="webservice">
+            <h2><span>Webservice</span> {{webservice.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Webservice Name</span></dt>
+                <dd>
+                    <span>{{webservice.webserviceName}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{webservice.description}}</span>
+                </dd>
+                <dt><span>Datatype</span></dt>
+                <dd>
+                    <span>{{webservice.datatype}}</span>
+                </dd>
+                <dt><span>Database Type</span></dt>
+                <dd>
+                    <span>{{webservice.databaseType}}</span>
+                </dd>
+                <dt><span>Database Product</span></dt>
+                <dd>
+                    <span>{{webservice.databaseProduct}}</span>
+                </dd>
+                <dt><span>Database Path</span></dt>
+                <dd>
+                    <span>{{webservice.databasePath}}</span>
+                </dd>
+                <dt><span>Db Username</span></dt>
+                <dd>
+                    <span>{{webservice.dbUsername}}</span>
+                </dd>
+                <dt><span>Db Pass</span></dt>
+                <dd>
+                    <span>{{webservice.dbPass}}</span>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{webservice.user?.id}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/webservice', webservice.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -52,6 +52,7 @@ spring:
             hibernate.generate_statistics: true
     liquibase:
         contexts: dev
+        drop-first: false
     mail:
         host: localhost
         port: 25

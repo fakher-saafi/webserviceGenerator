@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-task-heading">Create or edit a Task</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!task.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="task.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_taskType">Task Type</label>
+                    <select class="form-control" name="taskType" [(ngModel)]="task.taskType" id="field_taskType" >
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="task.description" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_webservice">Webservice</label>
+                    <select class="form-control" id="field_webservice" name="webservice" [(ngModel)]="task.webservice" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="webserviceOption.id === task.webservice?.id ? task.webservice : webserviceOption" *ngFor="let webserviceOption of webservices; trackBy: trackWebserviceById">{{webserviceOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

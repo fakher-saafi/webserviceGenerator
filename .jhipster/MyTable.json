@@ -1,0 +1,30 @@
+{
+    "name": "MyTable",
+    "fields": [
+        {
+            "fieldName": "tableName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nbColomn",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "webservice",
+            "otherEntityName": "webservice",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180718095230",
+    "entityTableName": "my_table",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

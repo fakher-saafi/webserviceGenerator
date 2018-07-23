@@ -1,0 +1,62 @@
+<div>
+    <h2 id="page-heading">
+        <span>My Tables</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-my-table" [routerLink]="['/my-table/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new My Table
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="myTables">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Table Name</span></th>
+            <th><span>Nb Colomn</span></th>
+            <th><span>Webservice</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let myTable of myTables ;trackBy: trackId">
+                <td><a [routerLink]="['/my-table', myTable.id, 'view' ]">{{myTable.id}}</a></td>
+                <td>{{myTable.tableName}}</td>
+                <td>{{myTable.nbColomn}}</td>
+                <td>
+                    <div *ngIf="myTable.webservice">
+                        <a [routerLink]="['../webservice', myTable.webservice?.id, 'view' ]" >{{myTable.webservice?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/my-table', myTable.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/my-table', myTable.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'my-table/'+ myTable.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

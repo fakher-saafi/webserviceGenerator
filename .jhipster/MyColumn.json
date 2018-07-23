@@ -1,0 +1,30 @@
+{
+    "name": "MyColumn",
+    "fields": [
+        {
+            "fieldName": "columnName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "table",
+            "otherEntityName": "myTable",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180718095231",
+    "entityTableName": "my_column",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

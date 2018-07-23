@@ -1,0 +1,62 @@
+<div>
+    <h2 id="page-heading">
+        <span>My Columns</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-my-column" [routerLink]="['/my-column/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new My Column
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="myColumns">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Column Name</span></th>
+            <th><span>Type</span></th>
+            <th><span>Table</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let myColumn of myColumns ;trackBy: trackId">
+                <td><a [routerLink]="['/my-column', myColumn.id, 'view' ]">{{myColumn.id}}</a></td>
+                <td>{{myColumn.columnName}}</td>
+                <td>{{myColumn.type}}</td>
+                <td>
+                    <div *ngIf="myColumn.table">
+                        <a [routerLink]="['../my-table', myColumn.table?.id, 'view' ]" >{{myColumn.table?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/my-column', myColumn.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/my-column', myColumn.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'my-column/'+ myColumn.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
