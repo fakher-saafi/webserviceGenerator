@@ -174,12 +174,15 @@ public class WebserviceResource {
             }
 
                 /******************************************/
-                return ResponseEntity.ok().headers(HeaderUtil.createAlert("Successfully connected to "+webservice.getDatabaseProduct().toString()+" database","")).build();
+                return ResponseEntity.accepted().headers(HeaderUtil.createAlert("Successfully connected to "+webservice.getDatabaseProduct().toString()+" database","")).build();
             }
         } catch (SQLException ex) {
             System.out .println("pathhhhhhh "+webservice.getDatabasePath());
             System.out .println("An error occurred while connecting "+webservice.getDatabaseProduct().toString()+" database"); ex.printStackTrace();
-            return ResponseEntity.ok().headers(HeaderUtil.createAlert("An error occurred while connecting "+webservice.getDatabaseProduct().toString()+" database","")).build();
+            return ResponseEntity.noContent().headers(HeaderUtil.createAlert("An error occurred while connecting "+webservice.getDatabaseProduct().toString()+" database","")).build();
+
+
+
         }
         /***********************************/
         return ResponseEntity.ok().headers(HeaderUtil.createAlert("","")).build();

@@ -2,13 +2,13 @@ package com.mycompany.myapp.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.myapp.domain.MyPojo;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -175,5 +175,71 @@ public class mysqldbService {
     }
 
 
+    public List<Map> findAll(String table){
+        String query="SELECT * from "+table;
+
+        try {
+            stmt = con.prepareStatement(query);
+
+
+        //Resultset returned by query
+
+
+            rs = stmt.executeQuery(query);
+            return convertToMap(rs);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public  List<Map> convertToMap(ResultSet resultSet)
+        throws Exception {
+        List<Map> list=new ArrayList<>();
+        while (resultSet.next()) {
+            Map hashMap = new HashMap();
+            int total_rows = resultSet.getMetaData().getColumnCount();
+            for (int i = 0; i < total_rows; i++) {
+
+                hashMap.put(resultSet.getMetaData().getColumnLabel(i + 1)
+                    .toLowerCase(), resultSet.getObject(i + 1));
+
+            }
+            list.add(hashMap);
+        }
+        return list;
+    }
+
+
+   // public List<Map> FindOneBy(String table,String column,String columnValue){
+     //   List<Map> listmap=findAll(table);
+       // Map<String,String> map=new HashMap<>();
+  //      listmap.stream().filter(l->{
+    //         l.entrySet().stream()
+      //          .filter(x -> x.getKey().contains(column) && x.getValue().contains(columnValue) )
+        //        .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
+ //            return true;
+   //     }).collect(Collectors.toList());
+   //  return listmap;
+   // }
+
+    public List<Map> FindOneBy(String table,String column,String columnValue){
+        String query="SELECT * FROM `"+table+"` WHERE "+column+"='"+columnValue+"'";
+
+        try {
+            stmt = con.prepareStatement(query);
+
+            //Resultset returned by query
+
+
+            rs = stmt.executeQuery(query);
+            return convertToMap(rs);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        return null;
+    }
 
 }
