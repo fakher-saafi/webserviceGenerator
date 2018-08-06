@@ -4,11 +4,15 @@ import com.mycompany.myapp.domain.Webservice;
 import com.mycompany.myapp.domain.Webservice_;
 import com.mycompany.myapp.repository.WebserviceRepository;
 import com.mycompany.myapp.service.mysqldbService;
+import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing users.
@@ -56,7 +60,7 @@ public class ClientResource {
      */
     @GetMapping("{id}/{table}")
 
-    public List<Map> getAllUsers(@PathVariable Long id,@PathVariable String table) {
+    public List<Map> getAll(@PathVariable Long id,@PathVariable String table) {
         Optional<Webservice> ws=webserviceRepository.findById(id);
         if (ms.testConnection(ws.get().getDatabasePath(),ws.get().getDbUsername(),ws.get().getDbPass())){
             return ms.findAll(table);
@@ -66,8 +70,7 @@ public class ClientResource {
     }
 
     @GetMapping("{id}/{table}/{column}/{columnValue}")
-
-    public List<Map> getAllUsers(@PathVariable Long id,@PathVariable String table,@PathVariable String column,@PathVariable String columnValue) {
+    public List<Map> getBy(@PathVariable Long id,@PathVariable String table,@PathVariable String column,@PathVariable String columnValue) {
         Optional<Webservice> ws=webserviceRepository.findById(id);
         if (ms.testConnection(ws.get().getDatabasePath(),ws.get().getDbUsername(),ws.get().getDbPass())){
             return ms.FindOneBy(table,column,columnValue);
@@ -75,5 +78,23 @@ public class ClientResource {
         }
         return null;
     }
+
+
+
+    @PostMapping("{id}/{table}")
+    public ResponseEntity add(@PathVariable Long id, @PathVariable String table, @RequestBody Map map ){
+        //map.forEach((k,v)->System.out.println("Name : " + k + " Type : " + v));
+        Optional<Webservice> ws=webserviceRepository.findById(id);
+        if (ms.testConnection(ws.get().getDatabasePath(),ws.get().getDbUsername(),ws.get().getDbPass())){
+            try {
+                ms.Add(map,table);
+            } catch (SQLException e) {
+                //throw new BadRequestAlertException("A new webservice cannot already have an ID", , "idexists");
+                return ResponseEntity.badRequest().body(e);
+            }
+        }
+        return ResponseEntity.ok().build();
+    }
+
 
 }

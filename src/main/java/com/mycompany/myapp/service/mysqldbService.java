@@ -166,7 +166,7 @@ public class mysqldbService {
               //  System.out.println("name : " + name+" type : " + type);
 
                 colomns.put(name,type);
-                pojo = mapper.convertValue(colomns, MyPojo.class);
+                //pojo = mapper.convertValue(colomns, MyPojo.class);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -240,6 +240,41 @@ public class mysqldbService {
         }
 
         return null;
+    }
+
+    public void Add(Map map,String table)throws SQLException{
+        Map<String,String> tableStruct =getTableColumns(table);
+        String column="";
+        String value="";
+        Iterator entries = map.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry entry = (Map.Entry) entries.next();
+
+            if(tableStruct.containsKey(entry.getKey())&& tableStruct.get(entry.getKey()).contains("varchar")){
+                column+=entry.getKey();
+                value+="'"+entry.getValue()+"'";
+            }else {
+                column+=entry.getKey();
+                value+=entry.getValue();
+            }
+
+          //  System.out.println("Key = " + key + ", Value = " + value);
+            if (entries.hasNext()) {
+                column+=",";
+                value+=",";
+            }
+        }
+
+
+        String query="INSERT INTO "+table+" ("+column+") VALUES ("+value+")";
+        System.out.println(query);
+
+            stmt = con.prepareStatement(query);
+            stmt.executeUpdate(query);
+
+            con.close();
+
+
     }
 
 }
