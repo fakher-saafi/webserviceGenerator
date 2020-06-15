@@ -54,11 +54,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Email
     @Size(min = 5, max = 254)
-    @Column(length = 254, unique = true)
+    @Column(name = "email",length = 254, unique = true)
     private String email;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "activated", nullable = false)
     private boolean activated = false;
 
     @Size(min = 2, max = 6)
@@ -87,7 +87,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinTable(
         name = "jhi_user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+        inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
 
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();

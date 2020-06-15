@@ -38,7 +38,7 @@
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+            <column name="created_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="reset_date" type="timestamp">
@@ -58,16 +58,16 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="authority_name" type="varchar(50)">
+            <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+        <addPrimaryKey columnNames="user_id, name" tableName="jhi_user_authority"/>
 
-        <addForeignKeyConstraint baseColumnNames="authority_name"
+        <addForeignKeyConstraint baseColumnNames="name"
                                  baseTableName="jhi_user_authority"
-                                 constraintName="fk_authority_name"
+                                 constraintName="fk_name"
                                  referencedColumnNames="name"
                                  referencedTableName="jhi_authority"/>
         <addForeignKeyConstraint baseColumnNames="user_id"
